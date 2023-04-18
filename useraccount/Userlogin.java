@@ -36,10 +36,10 @@ public class Userlogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txt_username = new javax.swing.JTextField();
-        txt_password = new javax.swing.JTextField();
         btn_login = new javax.swing.JButton();
         btn_register = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        txt_passbox = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -66,12 +66,6 @@ public class Userlogin extends javax.swing.JFrame {
             }
         });
 
-        txt_password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_passwordActionPerformed(evt);
-            }
-        });
-
         btn_login.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn_login.setText("Login");
         btn_login.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +85,12 @@ public class Userlogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Movie Booking System");
 
+        txt_passbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_passboxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,19 +103,19 @@ public class Userlogin extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(87, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_username, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                            .addComponent(txt_passbox))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(110, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,27 +126,24 @@ public class Userlogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
+                    .addComponent(txt_passbox, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_login, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_register, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_passwordActionPerformed
-
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txt_usernameActionPerformed
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
@@ -154,7 +151,7 @@ public class Userlogin extends javax.swing.JFrame {
         //Get all data from text fields first, so get the username and password entered by the user before pressing the login button
         
         String username = txt_username.getText();
-        String password = txt_password.getText();
+        String password = txt_passbox.getText();
         try{
             //This statement below is to "register" the driver class. In order to use mySQL that we just imported, we need to get the class for it.
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -164,15 +161,28 @@ public class Userlogin extends javax.swing.JFrame {
             PreparedStatement pst = conn.prepareStatement(sqlquery); //This is a "prepared statement" object for sending this request, (the sql query) directly to our database. Prepared statement DOES NEED TO BE IMPORTED.
             ResultSet rs = pst.executeQuery(); //This is a "resultset" and it will execute our query through our prepared statement object. This also needs to be imported.
             
+            
+            //2nd SQL statement to check if the user is an admin or not 
+            String sqlquery2 = "SELECT * FROM userlogin WHERE  username = '"+username+"' AND userpassword = '"+password+"' AND adminstatus = 'Y'"; //This SQL statement tries to find if the username and password for the user exists, AND if they're an admin.
+            PreparedStatement pst2 = conn.prepareStatement(sqlquery2);
+            ResultSet rs2 = pst2.executeQuery();
+            
             if(!rs.next()) //This if statement is to literally say if (rs, our result set variable) comes up with no result from our database, then execute statement 
             {
                 JOptionPane.showMessageDialog(null, "Invalid Username and Password");
             }
             else{ //This will be IF THERE IS a result returned
-                JOptionPane.showMessageDialog(null, "Login Successful");
-                this.dispose(); //the this (referring to the user login frame) .dispose (this means to close the window) so pretty much we're saying to close login window if there is a successful login.
-                new Form1().show(); //When this window closes, we want to show the next frame whenever a user logs-in successfully, so we are saying that a "new" window (in this case, Form1) will .show() (show up/pop up) at this time.                            
                 
+                if(!rs2.next()){ //If the user IS NOT AN ADMIN (adminstatus = N) then login with regular MBS site
+                    JOptionPane.showMessageDialog(null, "Login Successful");
+                    this.dispose(); //the this (referring to the user login frame) .dispose (this means to close the window) so pretty much we're saying to close login window if there is a successful login.
+                    new Form1().show(); //When this window closes, we want to show the next frame whenever a user logs-in successfully, so we are saying that a "new" window (in this case, Form1) will .show() (show up/pop up) at this time.                            
+                }
+                else{ //If the user IS AN ADMIN (adminstatus = Y) then login with admin window
+                    JOptionPane.showMessageDialog(null, "Admin login Successful");
+                    this.dispose();
+                    new TestAdminWindow().show();
+                }
                 /*
                 Note, for the dependencies, we had to add the 8.0.30.jar file to let the java program use the correct
                 SQL classes to communicate with our MySQL server. Without the .jar file, the program wouldn't be able to use the 
@@ -192,6 +202,10 @@ public class Userlogin extends javax.swing.JFrame {
         new Registration().show(); //Creates and opens new window (registration window) 
         
     }//GEN-LAST:event_btn_registerActionPerformed
+
+    private void txt_passboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_passboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_passboxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,7 +249,7 @@ public class Userlogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txt_password;
+    private javax.swing.JPasswordField txt_passbox;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

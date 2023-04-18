@@ -268,7 +268,7 @@ public class Registration extends javax.swing.JFrame {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/user_account?zeroDateTimeBehavior=CONVERT_TO_NULL","root", "1234"); //This is where we are literally telling the code to "connect" to our database which has a specific URL that we can look for by going into properties from our imported database and looking for the URL
-            String sqlquery = "INSERT INTO userlogin (idno,lastname,firstname,emailadd,username,userpassword) VALUES ('"+id+"','"+lastname+"','"+firstname+"','"+email+"','"+username+"','"+password+"')";
+            String sqlquery = "INSERT INTO userlogin (idno,lastname,firstname,emailadd,username,userpassword,adminstatus) VALUES ('"+id+"','"+lastname+"','"+firstname+"','"+email+"','"+username+"','"+password+"','N')";
             //SQL statement, INSERTing stuff into our userlogin table
             PreparedStatement pst = conn.prepareStatement(sqlquery);
             /*
